@@ -22,23 +22,7 @@ def xgb_model(scale_pos_weight):
 
 
 
-# Train XGBoost
-'''model = XGBClassifier(
-    use_label_encoder=False,
-    eval_metric='logloss',
-    scale_pos_weight=scale_pos_weight,
-    random_state=42
-)
-model.fit(X_train, y_train)
-
-# Evaluate
-y_pred = model.predict(X_test)
-print(confusion_matrix(y_test, y_pred))
-print(classification_report(y_test, y_pred))
-
-y_pred = model.predict(X_train)
-print(confusion_matrix(y_train, y_pred))
-print(classification_report(y_train, y_pred))'''
+# Train XGBoost and tune hyperparametes using gridsearch cv
 
 '''param_grid = {
     'n_estimators': [40, 50],
@@ -72,4 +56,14 @@ print("Best parameters:", grid_search.best_params_)
 print("Best score:", grid_search.best_score_)
 
 # Use best model
-best_model = grid_search.best_estimator_'''
+best_model = grid_search.best_estimator_
+
+
+# Evaluate
+y_pred = best_model.predict(X_test)
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+
+y_pred = best_model.predict(X_train)
+print(confusion_matrix(y_train, y_pred))
+print(classification_report(y_train, y_pred))'''
