@@ -79,7 +79,7 @@ Although Logistic Regression achieved the best recall for class 1, it performed 
 
 ---
 
-## App
+## Website
 The web application was built using **Streamlit** and hosted on **Streamlit Community Cloud**.  
 
 - Since typical patients may not know their **Diabetes Pedigree Function**, it is calculated through a short series of questions.  
