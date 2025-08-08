@@ -10,19 +10,7 @@ import joblib
 
 def preprocess_for_xgboost(df):
     
-    '''cols_to_impute = ['Glucose', 'SkinThickness', 'Insulin']
-    df[cols_to_impute] = df[cols_to_impute].replace(0, np.nan)
-
-    # Apply KNN imputer
-    imputer = KNNImputer(n_neighbors=5)
-    df[cols_to_impute] = imputer.fit_transform(df[cols_to_impute])
-
-    cols_to_impute_2 = ['Age', 'SkinThickness', 'BMI','BloodPressure']
-    df[cols_to_impute_2] = df[cols_to_impute_2].replace(0, np.nan)
-
-
-    df[cols_to_impute_2] = imputer.fit_transform(df[cols_to_impute_2])'''
-
+    # missing values imputed using knn
     cols_to_impute = ['Glucose', 'SkinThickness', 'Insulin', 'Age', 'BMI', 'BloodPressure']
 
 # Replace 0s with NaNs in all selected columns
@@ -45,7 +33,7 @@ def preprocess_for_logreg(df):
     cols_to_impute = ['BloodPressure', 'BMI', 'Insulin', 'SkinThickness']
     df[cols_to_impute] = df[cols_to_impute].replace(0, np.nan)
 
-# Apply KNN imputer
+    # Apply KNN imputer
     imputer = KNNImputer(n_neighbors=5)
     df[cols_to_impute] = imputer.fit_transform(df[cols_to_impute])
 
@@ -59,11 +47,11 @@ def preprocess_for_logreg(df):
     df['glucose_age'] = df['Glucose'] * df['Age']
     df['insulin_bmi_ratio'] = df['Insulin'] / (df['BMI'] + 0.01)
 
-# Create health ratios
+    # Create health ratios
     df['glucose_insulin_ratio'] = df['Glucose'] / (df['Insulin'] + 1)
     df['pregnancies_per_age'] = df['Pregnancies'] / (df['Age'] + 0.01)
 
-# Risk composite scores
+    # Risk composite scores
     df['metabolic_risk'] = (df['Glucose']/100) + (df['BMI']/30) + (df['Age']/50)
 
     feature_columns = [col for col in df.columns if col != 'Outcome']
@@ -78,16 +66,16 @@ def preprocess_for_logreg(df):
         df[col] = df[col].clip(lower, upper)
 
     X = df.drop(columns=['Outcome'])  # all columns except Outcome
-    y = df['Outcome']  # keep Outcome separately
+    y = df['Outcome']                 # keep Outcome separately
 
-# Apply RobustScaler
+    # Apply RobustScaler
     scaler = RobustScaler()
     X_scaled = scaler.fit_transform(X)
 
-# Convert back to DataFrame (optional but helpful)
+    # Convert back to DataFrame 
     X_scaled_df = pd.DataFrame(X_scaled, columns=X.columns)
 
-# Recombine with Outcome
+    # Recombine with Outcome
     df = pd.concat([X_scaled_df, y.reset_index(drop=True)], axis=1)
 
 
@@ -113,12 +101,14 @@ def preprocess_for_NN(df):
     df['glucose_age'] = df['Glucose'] * df['Age']
     df['insulin_bmi_ratio'] = df['Insulin'] / (df['BMI'] + 0.01)
 
-# Create health ratios
+    # Create health ratios
     df['glucose_insulin_ratio'] = df['Glucose'] / (df['Insulin'] + 1)
     df['pregnancies_per_age'] = df['Pregnancies'] / (df['Age'] + 0.01)
 
-# Risk composite scores
+   # Risk composite scores
     df['metabolic_risk'] = (df['Glucose']/100) + (df['BMI']/30) + (df['Age']/50)
+
+    # additional features
     '''
     df['age_bmi'] = df['BMI'] * df['Age']
     df['pregnancies_age'] = df['Pregnancies'] * df['Age']
