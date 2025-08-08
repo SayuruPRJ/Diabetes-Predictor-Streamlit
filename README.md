@@ -85,4 +85,5 @@ The web application was built using **Streamlit** and hosted on **Streamlit Comm
 - Since typical patients may not know their **Diabetes Pedigree Function**, it is calculated through a short series of questions.  
 - The **Skin Thickness** parameter is estimated using a Logistic Regression model with BMI, Blood Pressure, and Insulin as inputs, due to the high correlation between these features.
 
+![Website](website.png)
 ---
