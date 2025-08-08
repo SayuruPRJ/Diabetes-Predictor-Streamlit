@@ -2,7 +2,7 @@ from sklearn.linear_model import LogisticRegression
 
 def logreg_model():
     best_params = {
-        'C': 0.0038,            # Inverse of regularization strength
+        'C': 0.0038,                           # Inverse of regularization strength
         'penalty': 'l2',                       # 'l1' can be used if solver='liblinear'
         'solver': 'liblinear',                 # solver must support the penalty type
         'class_weight': 'balanced',      
@@ -13,10 +13,12 @@ def logreg_model():
     return model
 
 
+# used for hyperparameter tuning
+
 '''param_grid = {
     'C': [0.01, 0.1, 1, 10, 100],            # Inverse of regularization strength
-    'penalty': ['l2'],                       # 'l1' can be used if solver='liblinear'
-    'solver': ['liblinear'],                     # solver must support the penalty type
+    'penalty': ['l2'],                       
+    'solver': ['liblinear'],                     
     'class_weight': ['balanced']             # To handle imbalance
 }
 
